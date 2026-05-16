@@ -1,0 +1,130 @@
+# =========================
+# ENV / SEGREDOS
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# LOGS
+# =========================
+*.log
+logs/
+public_html/logs/
+public_html/logs/*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# UPLOADS / ARQUIVOS GERADOS
+# =========================
+# Não versiona arquivos enviados pelo painel, mas mantém a estrutura das pastas.
+public_html/uploads/*
+!public_html/uploads/.gitkeep
+!public_html/uploads/.htaccess
+!public_html/uploads/audio/
+!public_html/uploads/audio/.gitkeep
+!public_html/uploads/banners/
+!public_html/uploads/banners/.gitkeep
+
+uploads/
+uploads/*
+
+# =========================
+# BACKUPS / DUMPS / ZIP
+# =========================
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+*.gz
+*.bak
+*.backup
+*.old
+*.orig
+*.sql.gz
+*.dump
+
+# CUIDADO:
+# Mantém o schema.sql e seed.sql do projeto, mas bloqueia outros SQL soltos.
+*.sql
+!database/schema.sql
+!database/seed.sql
+
+# =========================
+# SISTEMA OPERACIONAL
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# IDE / EDITORES
+# =========================
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# =========================
+# NODE / NEXT / FRONT
+# =========================
+node_modules/
+.next/
+out/
+dist/
+build/
+.vercel/
+.turbo/
+.cache/
+
+# =========================
+# PHP / COMPOSER
+# =========================
+vendor/
+composer.lock
+
+# =========================
+# RAILWAY / DEPLOY LOCAL
+# =========================
+.railway/
+railway.json.local
+
+# =========================
+# ARQUIVOS TEMPORÁRIOS
+# =========================
+tmp/
+temp/
+*.tmp
+*.temp
+
+# =========================
+# POSSÍVEIS CREDENCIAIS / CHAVES
+# =========================
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+id_rsa
+id_rsa.pub
+secrets.json
+credentials.json
+service-account.json
+
+# =========================
+# CACHE PHP / SESSIONS
+# =========================
+sessions/
+public_html/sessions/
+*.session
+
+# =========================
+# BANCO LOCAL
+# =========================
+*.sqlite
+*.sqlite3
+*.db
