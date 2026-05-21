@@ -3,7 +3,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-const CADASTRO_URL = 'https://jogodohexa.plataformapremios.site/#cadastro';
+const CADASTRO_URL = 'https://desafiodohexa.com.br/#cadastro';
 
 declare global {
   interface Window {
@@ -24,10 +24,89 @@ const stages: Stage[] = [
   { label: 'Acesso promocional liberado', detail: 'Próxima etapa: concluir cadastro oficial', pct: 100 }
 ];
 
-function track(eventName: string, data: Record<string, unknown> = {}) {
+function getSessionEventId(eventName: string) {
+  if (typeof window === 'undefined') return `hex_${eventName}_ssr`;
+  const key = `hex_event_id_${eventName}`;
+  const existing = window.sessionStorage.getItem(key);
+  if (existing) return existing;
+
+  const created = `hex_${eventName}_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+  window.sessionStorage.setItem(key, created);
+  return created;
+}
+
+function track(eventName: string, data: Record<string, unknown> = {}, standard = false) {
   if (typeof window === 'undefined' || typeof window.fbq !== 'function') return;
-  const eventID = `hex_${eventName}_${Date.now()}_${Math.random().toString(16).slice(2)}`;
-  window.fbq('trackCustom', eventName, { ...data, event_id: eventID });
+  const eventID = getSessionEventId(eventName);
+  const payload = { ...data, event_id: eventID };
+
+  if (standard) {
+    window.fbq('track', eventName, payload, { eventID });
+    return;
+  }
+
+  window.fbq('trackCustom', eventName, payload, { eventID });
+}
+
+function getCookieValue(name: string) {
+  if (typeof document === 'undefined') return '';
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length !== 2) return '';
+  return decodeURIComponent(parts.pop()?.split(';').shift() || '');
+}
+
+function setCookieValue(name: string, value: string, days = 90) {
+  if (typeof document === 'undefined' || !value) return;
+  const maxAge = days * 24 * 60 * 60;
+  document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAge}; SameSite=Lax`;
+}
+
+function getOrCreateFbc(fbclid: string) {
+  const cookieFbc = getCookieValue('_fbc');
+  if (cookieFbc) return cookieFbc;
+
+  const savedFbc = window.localStorage.getItem('hex_fbc') || '';
+  if (savedFbc) {
+    setCookieValue('_fbc', savedFbc);
+    return savedFbc;
+  }
+
+  if (!fbclid) return '';
+
+  const fbc = `fb.1.${Date.now()}.${fbclid}`;
+  window.localStorage.setItem('hex_fbc', fbc);
+  setCookieValue('_fbc', fbc);
+  return fbc;
+}
+
+function captureMetaBridge() {
+  if (typeof window === 'undefined') {
+    return { fbclid: '', fbp: '', fbc: '' };
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const fbclid = params.get('fbclid') || window.localStorage.getItem('hex_fbclid') || '';
+  const fbp = getCookieValue('_fbp') || window.localStorage.getItem('hex_fbp') || '';
+  const fbc = getOrCreateFbc(fbclid);
+
+  if (fbclid) window.localStorage.setItem('hex_fbclid', fbclid);
+  if (fbp) window.localStorage.setItem('hex_fbp', fbp);
+  if (fbc) window.localStorage.setItem('hex_fbc', fbc);
+
+  return { fbclid, fbp, fbc };
+}
+
+function buildCadastroUrl() {
+  const bridge = captureMetaBridge();
+  const url = new URL('https://desafiodohexa.com.br/');
+  url.searchParams.set('src', 'lp');
+
+  if (bridge.fbclid) url.searchParams.set('fbclid', bridge.fbclid);
+  if (bridge.fbp) url.searchParams.set('fbp', bridge.fbp);
+  if (bridge.fbc) url.searchParams.set('fbc', bridge.fbc);
+
+  return `${url.toString()}#cadastro`;
 }
 
 export default function Home() {
@@ -47,7 +126,20 @@ export default function Home() {
   }, [stageIndex]);
 
   useEffect(() => {
-    track('PreLP_Loaded', { page: 'desafio_do_hexa_pre_lp_safe' });
+    const bridge = captureMetaBridge();
+
+    track('ViewContent', {
+      content_name: 'Pre LP Desafio do Hexa',
+      content_category: 'challenge_game',
+      source: 'lp',
+      ...bridge
+    }, true);
+
+    track('PreLP_Loaded', {
+      page: 'desafio_do_hexa_pre_lp_safe',
+      source: 'lp',
+      ...bridge
+    });
   }, []);
 
   useEffect(() => {
@@ -63,7 +155,20 @@ export default function Home() {
         if (value >= stages.length - 1) {
           setUnlocked(true);
           window.clearInterval(interval);
-          track('PreLP_AccessUnlocked', { step: 'acesso_promocional_liberado' });
+          const bridge = captureMetaBridge();
+
+          track('Lead', {
+            content_name: 'Acesso Promocional Liberado',
+            content_category: 'challenge_game',
+            source: 'lp',
+            ...bridge
+          }, true);
+
+          track('PreLP_AccessUnlocked', {
+            step: 'acesso_promocional_liberado',
+            source: 'lp',
+            ...bridge
+          });
           return value;
         }
         return value + 1;
@@ -73,12 +178,36 @@ export default function Home() {
   }, []);
 
   function goToCadastro() {
-    track('PreLP_ClickCadastro', {
-      destination: CADASTRO_URL,
+    const destination = buildCadastroUrl();
+    const bridge = captureMetaBridge();
+
+    track('InitiateCheckout', {
+      content_name: 'Clique CTA Pre LP',
+      content_category: 'challenge_game',
+      source: 'lp',
+      destination,
       spots_left: spotsLeft,
-      stage: currentStage.label
+      stage: currentStage.label,
+      ...bridge
+    }, true);
+
+    track('CompleteRegistration', {
+      content_name: 'Acesso LP para Cadastro Oficial',
+      content_category: 'challenge_game',
+      source: 'lp',
+      destination,
+      ...bridge
+    }, true);
+
+    track('PreLP_ClickCadastro', {
+      destination,
+      spots_left: spotsLeft,
+      stage: currentStage.label,
+      source: 'lp',
+      ...bridge
     });
-    window.location.href = CADASTRO_URL;
+
+    window.location.href = destination;
   }
 
   return (

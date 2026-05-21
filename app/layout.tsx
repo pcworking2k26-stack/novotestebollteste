@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import './globals.css';
 
-const PIXEL_ID = '1502866891279664';
+const PIXEL_ID = '1864065377567105';
 
 export const metadata: Metadata = {
   title: 'Desafio do Hexa | Evento Promocional',
