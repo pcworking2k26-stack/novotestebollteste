@@ -6,9 +6,9 @@ import './globals.css';
 const PIXEL_ID = '1502866891279664';
 
 export const metadata: Metadata = {
-  title: 'Jogo do Hexa | Rodada Promocional',
-  description: 'Verifique sua banca promocional e avance para o cadastro oficial.',
-  applicationName: 'Jogo do Hexa',
+  title: 'Desafio do Hexa | Evento Promocional',
+  description: 'Verifique sua participação em uma rodada promocional do Desafio do Hexa.',
+  applicationName: 'Desafio do Hexa',
   icons: {
     icon: '/logo.png'
   }
@@ -33,7 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
             fbq('init', '${PIXEL_ID}');
             fbq('track', 'PageView');
-            fbq('track', 'ViewContent', {content_name: 'Pre LP Jogo do Hexa', content_category: 'pre_cadastro'});
+            fbq('track', 'ViewContent', {content_name: 'Pre LP Desafio do Hexa', content_category: 'challenge_game'});
           `}
         </Script>
         <noscript>

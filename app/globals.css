@@ -1,27 +1,25 @@
 /* ROTA: app/globals.css */
 :root {
   --bg: #020402;
-  --panel: rgba(4, 18, 10, 0.82);
-  --panel2: rgba(5, 32, 18, 0.72);
+  --panel: rgba(5, 18, 10, 0.82);
+  --panel2: rgba(7, 35, 18, 0.62);
   --green: #8dff00;
   --lime: #b7ff00;
   --cyan: #00d9ff;
   --gold: #ffd500;
   --text: #f7fff4;
   --muted: rgba(234, 255, 226, 0.72);
-  --line: rgba(141, 255, 0, 0.35);
-  --shadow: 0 0 42px rgba(141, 255, 0, 0.22);
+  --line: rgba(141, 255, 0, 0.28);
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.46), 0 0 34px rgba(141, 255, 0, 0.13);
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 html,
 body {
   margin: 0;
   min-height: 100%;
-  background: radial-gradient(circle at 50% 0%, #10220d 0%, #020402 50%, #000 100%);
+  background: #020402;
   color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
   overflow-x: hidden;
@@ -32,9 +30,7 @@ body {
   text-rendering: geometricPrecision;
 }
 
-button {
-  font: inherit;
-}
+button { font: inherit; }
 
 .pageShell {
   width: 100%;
@@ -44,9 +40,10 @@ button {
   align-items: stretch;
   padding: 0;
   background:
-    radial-gradient(circle at 8% 18%, rgba(0, 217, 255, 0.16), transparent 28%),
-    radial-gradient(circle at 94% 16%, rgba(141, 255, 0, 0.18), transparent 25%),
-    linear-gradient(180deg, #08100a 0%, #000 100%);
+    radial-gradient(circle at 12% 16%, rgba(0, 217, 255, 0.12), transparent 28%),
+    radial-gradient(circle at 90% 18%, rgba(141, 255, 0, 0.14), transparent 28%),
+    radial-gradient(circle at 50% 100%, rgba(255, 213, 0, 0.08), transparent 34%),
+    linear-gradient(180deg, #071208 0%, #020402 58%, #000 100%);
 }
 
 .phoneFrame {
@@ -56,84 +53,94 @@ button {
   max-width: 460px;
   min-height: 100svh;
   margin: 0 auto;
-  padding: 18px 16px 20px;
+  padding: 16px 15px 18px;
   overflow: hidden;
   background:
-    linear-gradient(180deg, rgba(2, 22, 14, 0.98), rgba(0, 5, 3, 0.98)),
-    radial-gradient(circle at 50% 10%, rgba(0, 217, 255, 0.2), transparent 35%);
-  border-inline: 1px solid rgba(141, 255, 0, 0.18);
+    linear-gradient(180deg, rgba(3, 18, 10, 0.98), rgba(0, 6, 3, 0.985)),
+    radial-gradient(circle at 50% 8%, rgba(141, 255, 0, 0.14), transparent 32%);
+  border-inline: 1px solid rgba(141, 255, 0, 0.15);
 }
 
 .phoneFrame::before {
   content: '';
   position: absolute;
   inset: 8px;
-  border-radius: 28px;
-  border: 1px solid rgba(141, 255, 0, 0.22);
-  box-shadow: inset 0 0 42px rgba(141, 255, 0, 0.11);
+  border-radius: 30px;
+  border: 1px solid rgba(141, 255, 0, 0.16);
+  box-shadow: inset 0 0 48px rgba(141, 255, 0, 0.08);
   pointer-events: none;
   z-index: -1;
 }
 
 .ambient,
-.gridGlow {
+.gridGlow,
+.stadiumLines {
   position: absolute;
   pointer-events: none;
   z-index: -1;
 }
 
 .ambientOne {
-  width: 240px;
-  height: 240px;
-  left: -90px;
-  top: 150px;
+  width: 250px;
+  height: 250px;
+  left: -110px;
+  top: 145px;
   border-radius: 999px;
-  background: rgba(0, 217, 255, 0.16);
-  filter: blur(42px);
+  background: rgba(0, 217, 255, 0.13);
+  filter: blur(44px);
 }
 
 .ambientTwo {
-  width: 260px;
-  height: 260px;
-  right: -110px;
-  bottom: 220px;
+  width: 280px;
+  height: 280px;
+  right: -120px;
+  bottom: 190px;
   border-radius: 999px;
-  background: rgba(141, 255, 0, 0.18);
-  filter: blur(48px);
+  background: rgba(141, 255, 0, 0.14);
+  filter: blur(52px);
 }
 
 .gridGlow {
   inset: 0;
-  opacity: 0.18;
+  opacity: 0.13;
   background-image:
-    linear-gradient(rgba(0, 217, 255, 0.18) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(141, 255, 0, 0.16) 1px, transparent 1px);
+    linear-gradient(rgba(0, 217, 255, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(141, 255, 0, 0.14) 1px, transparent 1px);
   background-size: 34px 34px;
   mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
 }
 
+.stadiumLines {
+  inset: 0;
+  opacity: .35;
+  background:
+    radial-gradient(ellipse at 50% 18%, transparent 0 28%, rgba(255,255,255,.08) 28.2%, transparent 28.8%),
+    radial-gradient(ellipse at 50% 22%, transparent 0 42%, rgba(141,255,0,.08) 42.2%, transparent 42.8%);
+  mask-image: linear-gradient(to bottom, black 0%, transparent 55%);
+}
+
 .hero {
   text-align: center;
-  padding: 6px 4px 8px;
+  padding: 4px 4px 8px;
 }
 
 .liveBadge {
   width: fit-content;
   max-width: 100%;
-  margin: 0 auto 12px;
+  margin: 0 auto 10px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 15px;
-  border: 1px solid rgba(141, 255, 0, 0.42);
+  padding: 9px 14px;
+  border: 1px solid rgba(141, 255, 0, 0.28);
   border-radius: 999px;
-  background: rgba(7, 35, 14, 0.72);
+  background: rgba(7, 28, 12, 0.72);
   color: var(--lime);
   font-size: 10px;
   font-weight: 950;
-  letter-spacing: 1.8px;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
-  box-shadow: 0 0 24px rgba(141, 255, 0, 0.16);
+  box-shadow: 0 0 18px rgba(141, 255, 0, 0.10);
 }
 
 .liveBadge span {
@@ -146,15 +153,15 @@ button {
 
 .logo {
   display: block;
-  width: min(78vw, 300px);
+  width: min(77vw, 312px);
   height: auto;
-  margin: 0 auto 8px;
-  filter: drop-shadow(0 0 26px rgba(0, 217, 255, 0.34));
+  margin: 0 auto 6px;
+  filter: drop-shadow(0 0 22px rgba(255, 213, 0, 0.24)) drop-shadow(0 0 18px rgba(0, 217, 255, 0.16));
 }
 
 .heroCopy {
-  margin: -4px auto 0;
-  max-width: 390px;
+  margin: -2px auto 0;
+  max-width: 392px;
 }
 
 .kicker {
@@ -163,23 +170,23 @@ button {
   font-size: 10px;
   font-weight: 950;
   text-transform: uppercase;
-  letter-spacing: 1.8px;
+  letter-spacing: 1.6px;
 }
 
 .heroCopy h1 {
   margin: 0;
   color: white;
-  font-size: clamp(34px, 10vw, 52px);
-  line-height: 0.9;
-  letter-spacing: -2px;
+  font-size: clamp(32px, 9.4vw, 48px);
+  line-height: 0.92;
+  letter-spacing: -1.9px;
   text-transform: uppercase;
-  text-shadow: 0 4px 0 #03320e, 0 0 22px rgba(141, 255, 0, 0.22);
+  text-shadow: 0 4px 0 #03320e, 0 0 20px rgba(141, 255, 0, 0.18);
 }
 
 .heroCopy h1 strong {
   display: inline-block;
-  color: var(--green);
-  text-shadow: 0 4px 0 #063a13, 0 0 24px rgba(141, 255, 0, 0.45);
+  color: var(--gold);
+  text-shadow: 0 4px 0 #3c2900, 0 0 22px rgba(255, 213, 0, 0.32);
 }
 
 .heroCopy p:last-child {
@@ -187,8 +194,8 @@ button {
   max-width: 350px;
   color: var(--muted);
   font-size: 13px;
-  line-height: 1.38;
-  font-weight: 700;
+  line-height: 1.42;
+  font-weight: 750;
 }
 
 .gameCard,
@@ -196,15 +203,15 @@ button {
 .statusPanel,
 .steps {
   width: 100%;
-  border: 1px solid rgba(0, 217, 255, 0.28);
-  background: linear-gradient(180deg, rgba(4, 34, 23, 0.76), rgba(0, 8, 5, 0.84));
+  border: 1px solid rgba(141, 255, 0, 0.20);
+  background: linear-gradient(180deg, rgba(7, 28, 18, 0.74), rgba(0, 8, 5, 0.86));
   box-shadow: var(--shadow);
   backdrop-filter: blur(10px);
 }
 
 .gameCard {
   margin-top: 12px;
-  border-radius: 24px;
+  border-radius: 26px;
   padding: 14px;
 }
 
@@ -217,23 +224,21 @@ button {
   font-size: 10px;
   font-weight: 950;
   text-transform: uppercase;
-  letter-spacing: 1.8px;
+  letter-spacing: 1.7px;
 }
 
-.gameHeader strong {
-  color: var(--cyan);
-}
+.gameHeader strong { color: var(--cyan); }
 
 .field {
   position: relative;
-  height: 168px;
-  border: 1px solid rgba(0, 217, 255, 0.36);
+  height: 164px;
+  border: 1px solid rgba(141, 255, 0, 0.26);
   border-radius: 28px;
   overflow: hidden;
   background:
-    radial-gradient(circle at 50% 45%, rgba(0, 217, 255, 0.16), transparent 34%),
-    linear-gradient(180deg, rgba(0, 20, 14, 0.92), rgba(0, 7, 4, 0.94));
-  box-shadow: inset 0 0 42px rgba(0, 217, 255, 0.11);
+    radial-gradient(circle at 50% 44%, rgba(0, 217, 255, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(0, 22, 14, 0.92), rgba(0, 7, 4, 0.94));
+  box-shadow: inset 0 0 44px rgba(141, 255, 0, 0.07);
 }
 
 .field::before,
@@ -241,7 +246,7 @@ button {
 .goalBox {
   content: '';
   position: absolute;
-  border: 1px solid rgba(0, 217, 255, 0.28);
+  border: 1px solid rgba(0, 217, 255, 0.22);
 }
 
 .field::before {
@@ -255,7 +260,7 @@ button {
   bottom: 0;
   width: 1px;
   border: none;
-  background: linear-gradient(transparent, rgba(0, 217, 255, 0.4), transparent);
+  background: linear-gradient(transparent, rgba(0, 217, 255, 0.28), transparent);
 }
 
 .goalBox {
@@ -276,16 +281,16 @@ button {
   height: 54px;
   border-radius: 999px;
   color: #071006;
-  background: radial-gradient(circle at 35% 30%, #efff9b, var(--green) 56%, #5da600 100%);
-  box-shadow: 0 0 22px rgba(141, 255, 0, 0.72), 0 12px 26px rgba(0, 0, 0, 0.48);
-  font-size: 22px;
+  background: radial-gradient(circle at 35% 30%, #ffffff, var(--green) 62%, #4d9200 100%);
+  box-shadow: 0 0 20px rgba(141, 255, 0, 0.42), 0 12px 26px rgba(0, 0, 0, 0.48);
+  font-size: 24px;
   font-weight: 950;
   animation: floatBall 3s ease-in-out infinite;
 }
 
 .ballOne { left: 24px; top: 22px; }
-.ballTwo { left: 50%; top: 70px; transform: translateX(-50%); animation-delay: .35s; }
-.ballThree { right: 28px; bottom: 22px; animation-delay: .7s; }
+.ballTwo { left: 50%; top: 68px; transform: translateX(-50%); animation-delay: .35s; background: radial-gradient(circle at 35% 30%, #fff9c8, var(--gold) 62%, #a36b00 100%); }
+.ballThree { right: 28px; bottom: 22px; animation-delay: .7s; background: radial-gradient(circle at 35% 30%, #ffffff, var(--cyan) 62%, #006b92 100%); }
 
 @keyframes floatBall {
   0%, 100% { translate: 0 0; }
@@ -296,8 +301,8 @@ button {
   margin-top: 12px;
   padding: 12px;
   border-radius: 18px;
-  background: rgba(0, 0, 0, 0.32);
-  border: 1px solid rgba(141, 255, 0, 0.18);
+  background: rgba(0, 0, 0, 0.30);
+  border: 1px solid rgba(141, 255, 0, 0.15);
 }
 
 .progressTop {
@@ -308,12 +313,10 @@ button {
   font-size: 12px;
   font-weight: 950;
   text-transform: uppercase;
-  letter-spacing: .8px;
+  letter-spacing: .75px;
 }
 
-.progressTop b {
-  color: var(--lime);
-}
+.progressTop b { color: var(--lime); }
 
 .progressTrack {
   height: 10px;
@@ -327,7 +330,7 @@ button {
   height: 100%;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--cyan), var(--green), var(--gold));
-  box-shadow: 0 0 18px rgba(141, 255, 0, 0.5);
+  box-shadow: 0 0 18px rgba(141, 255, 0, 0.34);
   transition: width .6s ease;
 }
 
@@ -344,14 +347,13 @@ button {
   margin-top: 12px;
   padding: 12px;
   border-radius: 22px;
-  border-color: rgba(141, 255, 0, 0.28);
 }
 
 .statusPanel div {
   min-width: 0;
   padding: 12px 8px;
   border-radius: 16px;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.28);
   text-align: center;
 }
 
@@ -362,7 +364,7 @@ button {
   font-size: 10px;
   font-weight: 950;
   text-transform: uppercase;
-  letter-spacing: 1.4px;
+  letter-spacing: 1.3px;
 }
 
 .statusPanel strong {
@@ -372,14 +374,13 @@ button {
   font-size: clamp(28px, 8vw, 42px);
   line-height: 1;
   letter-spacing: 1px;
-  text-shadow: 0 0 20px rgba(141, 255, 0, 0.45);
+  text-shadow: 0 0 18px rgba(141, 255, 0, 0.34);
 }
 
 .rewardCard {
   margin-top: 12px;
   padding: 16px 14px;
   border-radius: 24px;
-  border-color: rgba(141, 255, 0, 0.28);
   text-align: center;
 }
 
@@ -393,20 +394,20 @@ button {
 
 .chips span {
   padding: 8px 10px;
-  border: 1px solid rgba(141, 255, 0, 0.38);
+  border: 1px solid rgba(141, 255, 0, 0.26);
   border-radius: 999px;
-  background: rgba(6, 36, 8, 0.58);
+  background: rgba(6, 32, 8, 0.50);
   color: white;
   font-size: 10px;
   font-weight: 950;
   text-transform: uppercase;
-  letter-spacing: .8px;
+  letter-spacing: .7px;
 }
 
 .rewardCard h2 {
   margin: 0;
   color: white;
-  font-size: clamp(25px, 7.2vw, 38px);
+  font-size: clamp(25px, 7.2vw, 36px);
   line-height: .98;
   letter-spacing: -1px;
   text-transform: uppercase;
@@ -416,7 +417,7 @@ button {
   margin: 10px auto 14px;
   color: var(--muted);
   font-size: 13px;
-  line-height: 1.38;
+  line-height: 1.42;
   font-weight: 750;
 }
 
@@ -425,20 +426,21 @@ button {
   overflow: hidden;
   padding: 14px;
   border-radius: 20px;
-  border: 1px solid rgba(141, 255, 0, 0.35);
+  border: 1px solid rgba(141, 255, 0, 0.25);
   background:
-    radial-gradient(circle at 20% 20%, rgba(255, 213, 0, 0.16), transparent 36%),
-    rgba(0, 0, 0, 0.44);
+    radial-gradient(circle at 20% 20%, rgba(255, 213, 0, 0.13), transparent 38%),
+    rgba(0, 0, 0, 0.38);
 }
 
 .valueBox strong {
   display: block;
-  margin-top: 3px;
+  margin-top: 6px;
   color: var(--lime);
-  font-size: clamp(48px, 16vw, 72px);
-  line-height: .88;
-  letter-spacing: -3px;
-  text-shadow: 0 0 28px rgba(141, 255, 0, 0.52);
+  font-size: clamp(40px, 13vw, 62px);
+  line-height: .9;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  text-shadow: 0 0 26px rgba(141, 255, 0, 0.40);
 }
 
 .valueBox small {
@@ -448,7 +450,7 @@ button {
   font-size: 11px;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: .6px;
+  letter-spacing: .5px;
 }
 
 .steps {
@@ -458,15 +460,14 @@ button {
   margin-top: 12px;
   padding: 10px;
   border-radius: 20px;
-  border-color: rgba(0, 217, 255, 0.24);
 }
 
 .step {
   min-width: 0;
   padding: 10px 6px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.055);
-  color: rgba(255, 255, 255, 0.52);
+  background: rgba(255, 255, 255, 0.052);
+  color: rgba(255, 255, 255, 0.56);
   text-align: center;
 }
 
@@ -487,19 +488,19 @@ button {
   font-weight: 950;
   line-height: 1.15;
   text-transform: uppercase;
-  letter-spacing: .5px;
+  letter-spacing: .45px;
 }
 
 .step.active {
   color: white;
-  background: rgba(141, 255, 0, 0.1);
-  box-shadow: inset 0 0 0 1px rgba(141, 255, 0, 0.22);
+  background: rgba(141, 255, 0, 0.085);
+  box-shadow: inset 0 0 0 1px rgba(141, 255, 0, 0.18);
 }
 
 .step.active b {
   color: #061106;
   background: var(--green);
-  box-shadow: 0 0 14px rgba(141, 255, 0, 0.5);
+  box-shadow: 0 0 14px rgba(141, 255, 0, 0.42);
 }
 
 .mainCta {
@@ -513,21 +514,19 @@ button {
   border-radius: 22px;
   background: linear-gradient(135deg, var(--lime), var(--green) 45%, var(--cyan));
   color: #031108;
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.5), 0 0 34px rgba(141, 255, 0, 0.42);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.5), 0 0 30px rgba(141, 255, 0, 0.34);
   text-transform: uppercase;
   cursor: pointer;
   transform: translateZ(0);
 }
 
 .mainCta span,
-.mainCta b {
-  display: block;
-}
+.mainCta b { display: block; }
 
 .mainCta span {
   font-size: 12px;
   font-weight: 950;
-  letter-spacing: 1.3px;
+  letter-spacing: 1.25px;
 }
 
 .mainCta b {
@@ -548,50 +547,22 @@ button {
   font-size: 9px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: .8px;
+  letter-spacing: .75px;
 }
 
 @media (max-width: 380px) {
-  .phoneFrame {
-    padding: 14px 12px 18px;
-  }
-
-  .logo {
-    width: min(75vw, 255px);
-  }
-
-  .heroCopy h1 {
-    font-size: 31px;
-  }
-
-  .field {
-    height: 154px;
-  }
-
-  .ball {
-    width: 48px;
-    height: 48px;
-    font-size: 20px;
-  }
-
-  .statusPanel {
-    grid-template-columns: 1fr;
-  }
-
-  .steps {
-    gap: 6px;
-  }
-
-  .mainCta b {
-    font-size: 19px;
-  }
+  .phoneFrame { padding: 14px 12px 18px; }
+  .logo { width: min(76vw, 265px); }
+  .heroCopy h1 { font-size: 30px; }
+  .field { height: 152px; }
+  .ball { width: 48px; height: 48px; font-size: 21px; }
+  .statusPanel { grid-template-columns: 1fr; }
+  .steps { gap: 6px; }
+  .mainCta b { font-size: 19px; }
 }
 
 @media (min-width: 700px) {
-  .pageShell {
-    padding: 28px 0;
-  }
-
+  .pageShell { padding: 28px 0; }
   .phoneFrame {
     min-height: auto;
     border-radius: 34px;

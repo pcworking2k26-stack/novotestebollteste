@@ -18,10 +18,10 @@ type Stage = {
 };
 
 const stages: Stage[] = [
-  { label: 'Buscando rodada ativa', detail: 'Conectando ao sistema promocional', pct: 18 },
-  { label: 'Validando novo acesso', detail: 'Verificando elegibilidade de cadastro', pct: 39 },
-  { label: 'Reservando banca inicial', detail: 'Separando acesso promocional por alguns minutos', pct: 66 },
-  { label: 'Cadastro liberado', detail: 'Próxima etapa: concluir cadastro oficial', pct: 100 }
+  { label: 'Localizando evento ativo', detail: 'Conectando ao desafio promocional mobile', pct: 18 },
+  { label: 'Validando participação', detail: 'Checando disponibilidade para novo jogador', pct: 42 },
+  { label: 'Reservando acesso especial', detail: 'Separando uma posição na rodada por tempo limitado', pct: 68 },
+  { label: 'Acesso promocional liberado', detail: 'Próxima etapa: concluir cadastro oficial', pct: 100 }
 ];
 
 function track(eventName: string, data: Record<string, unknown> = {}) {
@@ -39,7 +39,7 @@ export default function Home() {
   const minutes = String(Math.floor(seconds / 60)).padStart(2, '0');
   const secs = String(seconds % 60).padStart(2, '0');
 
-  const banksLeft = useMemo(() => {
+  const spotsLeft = useMemo(() => {
     if (stageIndex === 0) return 13;
     if (stageIndex === 1) return 9;
     if (stageIndex === 2) return 5;
@@ -47,7 +47,7 @@ export default function Home() {
   }, [stageIndex]);
 
   useEffect(() => {
-    track('PreLP_Loaded', { page: 'jogo_do_hexa_pre_lp' });
+    track('PreLP_Loaded', { page: 'desafio_do_hexa_pre_lp_safe' });
   }, []);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function Home() {
         if (value >= stages.length - 1) {
           setUnlocked(true);
           window.clearInterval(interval);
-          track('PreLP_AccessUnlocked', { step: 'cadastro_liberado' });
+          track('PreLP_AccessUnlocked', { step: 'acesso_promocional_liberado' });
           return value;
         }
         return value + 1;
@@ -75,7 +75,7 @@ export default function Home() {
   function goToCadastro() {
     track('PreLP_ClickCadastro', {
       destination: CADASTRO_URL,
-      banks_left: banksLeft,
+      spots_left: spotsLeft,
       stage: currentStage.label
     });
     window.location.href = CADASTRO_URL;
@@ -83,37 +83,38 @@ export default function Home() {
 
   return (
     <main className="pageShell">
-      <section className="phoneFrame" aria-label="Pré cadastro Jogo do Hexa">
+      <section className="phoneFrame" aria-label="Pré cadastro Desafio do Hexa">
         <div className="ambient ambientOne" />
         <div className="ambient ambientTwo" />
         <div className="gridGlow" />
+        <div className="stadiumLines" />
 
         <header className="hero">
           <div className="liveBadge">
-            <span /> Rodada promocional ativa agora
+            <span /> Evento promocional ativo hoje
           </div>
-          <img src="/logo.png" alt="Jogo do Hexa" className="logo" />
+          <img src="/logo.png" alt="Desafio do Hexa" className="logo" />
           <div className="heroCopy">
-            <p className="kicker">Acesso inicial para novos cadastros</p>
+            <p className="kicker">Challenge mobile para novos jogadores</p>
             <h1>
-              Banca de <strong>R$50</strong> em análise
+              Desafio especial <strong>em análise</strong>
             </h1>
             <p>
-              Conclua a verificação e avance para o cadastro oficial enquanto a reserva está disponível.
+              Conclua a verificação rápida para consultar a disponibilidade da rodada promocional.
             </p>
           </div>
         </header>
 
         <section className="gameCard">
           <div className="gameHeader">
-            <span>Jogo do Hexa</span>
+            <span>Desafio do Hexa</span>
             <strong>{currentStage.pct}%</strong>
           </div>
 
           <div className="field">
-            <span className="ball ballOne">7</span>
-            <span className="ball ballTwo">5</span>
-            <span className="ball ballThree">2</span>
+            <span className="ball ballOne">⚽</span>
+            <span className="ball ballTwo">🏆</span>
+            <span className="ball ballThree">⭐</span>
             <div className="goalBox" />
           </div>
 
@@ -131,49 +132,49 @@ export default function Home() {
 
         <section className="statusPanel">
           <div>
-            <span>Tempo da reserva</span>
+            <span>Tempo do acesso</span>
             <strong>{minutes}:{secs}</strong>
           </div>
           <div>
-            <span>Bancas restantes</span>
-            <strong>{banksLeft}</strong>
+            <span>Vagas da rodada</span>
+            <strong>{spotsLeft}</strong>
           </div>
         </section>
 
         <section className="rewardCard">
           <div className="chips">
             <span>+18</span>
-            <span>Sem custo inicial</span>
+            <span>Challenge casual</span>
             <span>Rodada limitada</span>
           </div>
 
           <h2>
-            Seu acesso está quase pronto para o cadastro
+            Sua participação está quase liberada
           </h2>
           <p>
-            Na próxima tela, finalize seu cadastro oficial para ativar a banca inicial da rodada promocional.
+            Finalize a próxima etapa para entrar na experiência oficial do Desafio do Hexa.
           </p>
 
           <div className="valueBox">
-            <span>Banca inicial</span>
-            <strong>R$50</strong>
-            <small>liberada para novos cadastros elegíveis</small>
+            <span>Status do acesso</span>
+            <strong>Ativo</strong>
+            <small>disponibilidade promocional sujeita às regras da rodada</small>
           </div>
         </section>
 
         <section className="steps">
-          <div className="step active"><b>1</b><span>Rodada localizada</span></div>
-          <div className="step active"><b>2</b><span>Banca reservada</span></div>
+          <div className="step active"><b>1</b><span>Evento localizado</span></div>
+          <div className="step active"><b>2</b><span>Acesso reservado</span></div>
           <div className={`step ${unlocked ? 'active' : ''}`}><b>3</b><span>Cadastro oficial</span></div>
         </section>
 
         <button className="mainCta" type="button" onClick={goToCadastro}>
-          <span>{unlocked ? 'Continuar para cadastro' : 'Finalizar verificação'}</span>
-          <b>Ativar banca R$50</b>
+          <span>{unlocked ? 'Entrar na rodada' : 'Continuar verificação'}</span>
+          <b>Acessar desafio</b>
         </button>
 
         <footer className="footerSafe">
-          <span>Jogue com responsabilidade</span>
+          <span>Experiência de entretenimento</span>
           <span>Proibido para menores de 18 anos</span>
         </footer>
       </section>

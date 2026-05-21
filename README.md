@@ -1,6 +1,13 @@
-# Pré-LP Jogo do Hexa — Railway Ready
+# Desafio do Hexa — Pré-LP Andromeda Safe
 
-Projeto Next.js mobile-first pronto para subir no GitHub e Railway.
+Versão mobile-first da pré-LP com foco em:
+
+- experiência de challenge game;
+- copy mais segura para Meta Ads;
+- menos sinais de gambling;
+- fluxo de verificação promocional;
+- retenção visual e CTA forte;
+- preservação de Pixel/Eventos.
 
 ## Rodar local
 
@@ -9,53 +16,25 @@ npm install
 npm run dev
 ```
 
-Abra:
-
-```txt
-http://localhost:3000
-```
-
-## Deploy Railway
-
-Build Command:
+## Build
 
 ```bash
 npm run build
-```
-
-Start Command:
-
-```bash
 npm run start
 ```
 
 ## Pixel
 
-Meta Pixel configurado no arquivo `app/layout.tsx`:
+Meta Pixel configurado em `app/layout.tsx`.
 
-```txt
-1502866891279664
-```
+Eventos preservados:
 
-## Destino do botão
+- PageView
+- ViewContent
+- PreLP_Loaded
+- PreLP_AccessUnlocked
+- PreLP_ClickCadastro
 
-URL configurada no arquivo `app/page.tsx`:
+## Direção de copy
 
-```txt
-https://jogodohexa.plataformapremios.site/#cadastro
-```
-
-## Importante para GitHub
-
-Não suba `node_modules`, `.next`, `dist`, `build` ou `.env`. Este ZIP já vem com `.gitignore` correto.
-
-Se você já tentou subir uma pasta antiga com `node_modules`, faça em uma pasta NOVA extraída deste ZIP:
-
-```bash
-git init
-git branch -M main
-git remote add origin https://github.com/pcworking2k26-stack/novotestebollteste.git
-git add .
-git commit -m "deploy: pre lp jogo do hexa"
-git push -u origin main --force
-```
+A LP foi ajustada para parecer um evento promocional de desafio mobile, evitando linguagem de aposta, pagamento ou promessa financeira.

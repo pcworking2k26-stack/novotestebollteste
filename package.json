@@ -1,8 +1,8 @@
 {
-  "name": "pre-lp-jogo-do-hexa-railway-ready",
-  "version": "4.0.0",
+  "name": "pre-lp-desafio-do-hexa-andromeda-safe",
+  "version": "5.0.0",
   "private": true,
-  "description": "Pré-LP mobile-first Jogo do Hexa com Meta Pixel e CTA para cadastro.",
+  "description": "Pré-LP mobile-first Desafio do Hexa com Meta Pixel e CTA seguro para cadastro promocional.",
   "engines": {
     "node": ">=20.10.0"
   },
