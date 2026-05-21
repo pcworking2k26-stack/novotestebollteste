@@ -3,7 +3,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-const CADASTRO_URL = 'https://desafiodohexa.com.br';
+const CADASTRO_URL = 'https://desafiodohexa.com.br/';
 
 declare global {
   interface Window {
@@ -106,7 +106,7 @@ function buildCadastroUrl() {
   if (bridge.fbp) url.searchParams.set('fbp', bridge.fbp);
   if (bridge.fbc) url.searchParams.set('fbc', bridge.fbc);
 
-  return `${url.toString()}#cadastro`;
+  return url.toString();
 }
 
 export default function Home() {
