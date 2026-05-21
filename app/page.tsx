@@ -3,7 +3,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-const CADASTRO_URL = 'https://desafiodohexa.com.br/#cadastro';
+const CADASTRO_URL = 'https://desafiodohexa.com.br';
 
 declare global {
   interface Window {
